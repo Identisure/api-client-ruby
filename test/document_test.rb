@@ -24,11 +24,4 @@ class DocumentTest < Minitest::Test
     result = @client.document.download('doc1')
     assert_equal "\x25PDF-binary-bytes", result
   end
-
-  def test_delete
-    @mock.enqueue(204, '')
-    @client.document.delete('doc1')
-    assert_equal :delete, @mock.last_request[:method]
-    assert_equal '/document/doc1', @mock.last_request[:path]
-  end
 end

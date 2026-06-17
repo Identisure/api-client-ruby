@@ -17,15 +17,11 @@ module Idkollen
       end
 
       def upload(data, filename, mime_type: 'application/pdf')
-        UploadResponse.from_json(@transport.post_multipart('/document', data, filename, mime_type))
+        UploadResponse.from_json(@transport.post_multipart('/v3/document', data, filename, mime_type))
       end
 
       def download(id)
-        @transport.get_raw("/document/#{id}")
-      end
-
-      def delete(id)
-        @transport.delete("/document/#{id}")
+        @transport.get_raw("/v3/document/#{id}")
       end
     end
   end
