@@ -38,23 +38,16 @@ module Idkollen
     end
 
     class SignRequest
-      attr_reader :redirect_url, :text, :documents, :request_ssn, :request_phone,
-                  :request_email, :request_address, :ref_id
+      attr_reader :redirect_url, :text, :documents, :ref_id
 
-      def initialize(redirect_url: nil, text: nil, documents: nil, request_ssn: nil,
-                     request_phone: nil, request_email: nil, request_address: nil,
-                     ref_id: nil)
+      def initialize(redirect_url: nil, text: nil, documents: nil, ref_id: nil)
         @redirect_url = redirect_url; @text = text; @documents = documents
-        @request_ssn = request_ssn; @request_phone = request_phone
-        @request_email = request_email; @request_address = request_address
         @ref_id = ref_id
       end
 
       def to_h
         {
           redirectUrl: @redirect_url, text: @text, documents: @documents,
-          requestSsn: @request_ssn, requestPhone: @request_phone,
-          requestEmail: @request_email, requestAddress: @request_address,
           refId: @ref_id,
         }.compact
       end
