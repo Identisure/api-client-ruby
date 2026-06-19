@@ -68,9 +68,9 @@ module Idkollen
     def build_default_connection(base)
       Faraday.new(url: base) do |f|
         f.request :authorization, :basic, @client_id, @client_secret
+        f.request :multipart
         f.request :json
         f.response :json, content_type: /\bjson$/
-        f.request :multipart
         f.headers['User-Agent'] = USER_AGENT
         f.adapter Faraday.default_adapter
       end
