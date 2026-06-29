@@ -183,21 +183,21 @@ module Idkollen
       private
 
       def poll(opts)
-        deadline = Time.now + opts.timeout
+        deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + opts.timeout
         loop do
           status = yield
           return status unless status.is_a?(Pending)
-          raise WaitError.new(timeout: true) if Time.now >= deadline
+          raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
           sleep opts.interval
         end
       end
 
       def poll_age(opts)
-        deadline = Time.now + opts.timeout
+        deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + opts.timeout
         loop do
           status = yield
           return status unless status.is_a?(Idkollen::AgeVerification::Pending)
-          raise WaitError.new(timeout: true) if Time.now >= deadline
+          raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
           sleep opts.interval
         end
       end
