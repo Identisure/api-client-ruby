@@ -131,7 +131,7 @@ module Idkollen
         when 'PENDING'   then Pending.from_json(d)
         when 'COMPLETED' then Completed.from_json(d)
         when 'FAILED'    then Failed.from_json(d)
-        else raise ArgumentError, "Unknown bankid-no status: #{d['status']}"
+        else raise IdkollenError.new(0, "Unknown bankid-no status: #{d['status']}")
         end
       end
     end
