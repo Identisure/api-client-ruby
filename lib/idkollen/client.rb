@@ -63,6 +63,8 @@ module Idkollen
       Client.new(Transport.new(conn))
     end
 
+    def inspect = "#<#{self.class.name} client_id=#{@client_id.inspect}>"
+
     private
 
     def build_default_connection(base)

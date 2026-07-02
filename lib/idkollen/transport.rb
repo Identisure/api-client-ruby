@@ -12,6 +12,9 @@ module Idkollen
       @conn = connection
     end
 
+    # The Faraday connection holds the basic-auth credentials.
+    def inspect = "#<#{self.class.name}>"
+
     def post(path, body)
       handle(@conn.post(path) do |req|
         req.headers['Content-Type'] = 'application/json'
