@@ -158,24 +158,53 @@ module Idkollen
       end
     end
 
+    class Device
+      attr_reader :ip_address, :uhi
+
+      def initialize(ip_address: nil, uhi: nil)
+        @ip_address = ip_address; @uhi = uhi
+      end
+
+      def deconstruct_keys(_) = { ip_address: @ip_address, uhi: @uhi }
+
+      def self.from_json(d) = new(ip_address: d['ipAddress'], uhi: d['uhi'])
+    end
+
+    class StepUp
+      attr_reader :mrtd, :face
+
+      def initialize(mrtd: nil, face: nil)
+        @mrtd = mrtd; @face = face
+      end
+
+      def deconstruct_keys(_) = { mrtd: @mrtd, face: @face }
+
+      def self.from_json(d) = new(mrtd: d['mrtd'], face: d['face'])
+    end
+
     class Completed
       attr_reader :id, :ref_id, :ssn, :name, :given_name, :surname,
-                  :cert_start_date, :address, :company_signatory_text,
+                  :cert_start_date, :ocsp_response, :risk, :device, :step_up,
+                  :address, :company_signatory_text,
                   :authenticated_at, :signed_at
 
-      def initialize(id:, ssn:, name:, given_name:, surname:,
-                     ref_id: nil, cert_start_date: nil, address: nil, company_signatory_text: nil,
+      def initialize(id:, ssn:, name:, given_name:, surname:, ocsp_response:,
+                     ref_id: nil, cert_start_date: nil, risk: nil, device: nil, step_up: nil,
+                     address: nil, company_signatory_text: nil,
                      authenticated_at: nil, signed_at: nil)
         @id = id; @ref_id = ref_id; @ssn = ssn; @name = name
         @given_name = given_name; @surname = surname
-        @cert_start_date = cert_start_date; @address = address
+        @cert_start_date = cert_start_date; @ocsp_response = ocsp_response
+        @risk = risk; @device = device; @step_up = step_up; @address = address
         @company_signatory_text = company_signatory_text
         @authenticated_at = authenticated_at; @signed_at = signed_at
       end
 
       def deconstruct_keys(_)
         { id: @id, ref_id: @ref_id, ssn: @ssn, name: @name, given_name: @given_name,
-          surname: @surname, cert_start_date: @cert_start_date, address: @address,
+          surname: @surname, cert_start_date: @cert_start_date,
+          ocsp_response: @ocsp_response, risk: @risk, device: @device, step_up: @step_up,
+          address: @address,
           company_signatory_text: @company_signatory_text,
           authenticated_at: @authenticated_at, signed_at: @signed_at }
       end
@@ -183,7 +212,11 @@ module Idkollen
       def self.from_json(d)
         new(id: d['id'], ref_id: d['refId'], ssn: d['ssn'], name: d['name'],
             given_name: d['givenName'], surname: d['surname'],
-            cert_start_date: d['certStartDate'], address: d['address'],
+            cert_start_date: d['certStartDate'], ocsp_response: d['ocspResponse'],
+            risk: d['risk'],
+            device: d['device'] ? Device.from_json(d['device']) : nil,
+            step_up: d['stepUp'] ? StepUp.from_json(d['stepUp']) : nil,
+            address: d['address'],
             company_signatory_text: d['companySignatoryText'],
             authenticated_at: d['authenticatedAt'], signed_at: d['signedAt'])
       end

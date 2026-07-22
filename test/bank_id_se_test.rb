@@ -24,6 +24,7 @@ class BankIdSeTest < Minitest::Test
     @mock.enqueue(200, {
       'status' => 'COMPLETED', 'id' => 'abc', 'ssn' => '199001011234',
       'name' => 'Test User', 'givenName' => 'Test', 'surname' => 'User',
+      'ocspResponse' => 'MIIH',
     })
     result = @client.bank_id_se.auth(Idkollen::BankIdSe::AuthRequest.new)
     assert_kind_of Idkollen::BankIdSe::Completed, result
