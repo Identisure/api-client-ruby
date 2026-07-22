@@ -102,19 +102,22 @@ module Idkollen
 
     class Completed
       attr_reader :id, :ref_id, :ssn, :country, :name, :given_name, :surname,
-                  :address, :company_signatory_text
+                  :address, :company_signatory_text, :authenticated_at, :signed_at
 
       def initialize(id:, ssn:, country:, name:, given_name:, surname:,
-                     ref_id: nil, address: nil, company_signatory_text: nil)
+                     ref_id: nil, address: nil, company_signatory_text: nil,
+                     authenticated_at: nil, signed_at: nil)
         @id = id; @ref_id = ref_id; @ssn = ssn; @country = country
         @name = name; @given_name = given_name; @surname = surname
         @address = address; @company_signatory_text = company_signatory_text
+        @authenticated_at = authenticated_at; @signed_at = signed_at
       end
 
       def deconstruct_keys(_)
         { id: @id, ref_id: @ref_id, ssn: @ssn, country: @country,
           name: @name, given_name: @given_name, surname: @surname,
-          address: @address, company_signatory_text: @company_signatory_text }
+          address: @address, company_signatory_text: @company_signatory_text,
+          authenticated_at: @authenticated_at, signed_at: @signed_at }
       end
 
       def self.from_json(d)
@@ -122,6 +125,7 @@ module Idkollen
           id: d['id'], ref_id: d['refId'], ssn: d['ssn'], country: d['country'],
           name: d['name'], given_name: d['givenName'], surname: d['surname'],
           address: d['address'], company_signatory_text: d['companySignatoryText'],
+          authenticated_at: d['authenticatedAt'], signed_at: d['signedAt'],
         )
       end
     end

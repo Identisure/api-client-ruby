@@ -160,27 +160,32 @@ module Idkollen
 
     class Completed
       attr_reader :id, :ref_id, :ssn, :name, :given_name, :surname,
-                  :cert_start_date, :address, :company_signatory_text
+                  :cert_start_date, :address, :company_signatory_text,
+                  :authenticated_at, :signed_at
 
       def initialize(id:, ssn:, name:, given_name:, surname:,
-                     ref_id: nil, cert_start_date: nil, address: nil, company_signatory_text: nil)
+                     ref_id: nil, cert_start_date: nil, address: nil, company_signatory_text: nil,
+                     authenticated_at: nil, signed_at: nil)
         @id = id; @ref_id = ref_id; @ssn = ssn; @name = name
         @given_name = given_name; @surname = surname
         @cert_start_date = cert_start_date; @address = address
         @company_signatory_text = company_signatory_text
+        @authenticated_at = authenticated_at; @signed_at = signed_at
       end
 
       def deconstruct_keys(_)
         { id: @id, ref_id: @ref_id, ssn: @ssn, name: @name, given_name: @given_name,
           surname: @surname, cert_start_date: @cert_start_date, address: @address,
-          company_signatory_text: @company_signatory_text }
+          company_signatory_text: @company_signatory_text,
+          authenticated_at: @authenticated_at, signed_at: @signed_at }
       end
 
       def self.from_json(d)
         new(id: d['id'], ref_id: d['refId'], ssn: d['ssn'], name: d['name'],
             given_name: d['givenName'], surname: d['surname'],
             cert_start_date: d['certStartDate'], address: d['address'],
-            company_signatory_text: d['companySignatoryText'])
+            company_signatory_text: d['companySignatoryText'],
+            authenticated_at: d['authenticatedAt'], signed_at: d['signedAt'])
       end
     end
 

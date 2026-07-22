@@ -59,22 +59,23 @@ module Idkollen
 
     class Completed
       attr_reader :id, :ref_id, :ssn, :name, :given_name, :surname,
-                  :phone, :email, :address, :birth_date, :pid, :bank_id
+                  :phone, :email, :address, :birth_date, :pid, :bank_id,
+                  :authenticated_at
 
       def initialize(id:, ssn:, name:, given_name:, surname:, ref_id: nil,
                      phone: nil, email: nil, address: nil, birth_date: nil,
-                     pid: nil, bank_id: nil)
+                     pid: nil, bank_id: nil, authenticated_at: nil)
         @id = id; @ref_id = ref_id; @ssn = ssn; @name = name
         @given_name = given_name; @surname = surname; @phone = phone
         @email = email; @address = address; @birth_date = birth_date
-        @pid = pid; @bank_id = bank_id
+        @pid = pid; @bank_id = bank_id; @authenticated_at = authenticated_at
       end
 
       def deconstruct_keys(_)
         { id: @id, ref_id: @ref_id, ssn: @ssn, name: @name,
           given_name: @given_name, surname: @surname, phone: @phone,
           email: @email, address: @address, birth_date: @birth_date,
-          pid: @pid, bank_id: @bank_id }
+          pid: @pid, bank_id: @bank_id, authenticated_at: @authenticated_at }
       end
 
       def self.from_json(d)
@@ -83,6 +84,7 @@ module Idkollen
           given_name: d['givenName'], surname: d['surname'], phone: d['phone'],
           email: d['email'], address: d['address'], birth_date: d['birthDate'],
           pid: d['pid'], bank_id: d['bankId'],
+          authenticated_at: d['authenticatedAt'],
         )
       end
     end
