@@ -31,16 +31,16 @@ class BankIdSeTest < Minitest::Test
   end
 
   def test_auth_failed
-    @mock.enqueue(200, { 'status' => 'FAILED', 'id' => 'abc', 'error' => 'userCancel' })
+    @mock.enqueue(200, { 'status' => 'FAILED', 'id' => 'abc', 'error' => 'CANCELLED' })
     result = @client.bank_id_se.auth(Idkollen::BankIdSe::AuthRequest.new)
     assert_kind_of Idkollen::BankIdSe::Failed, result
-    assert_equal 'userCancel', result.error
+    assert_equal 'CANCELLED', result.error
   end
 
   def test_phone_auth_pending
     @mock.enqueue(200, { 'status' => 'PENDING', 'id' => 'abc', 'hintCode' => 'outstandingTransaction' })
     result = @client.bank_id_se.phone_auth(
-      Idkollen::BankIdSe::PhoneAuthRequest.new(ssn: '199001011234', call_initiator: 'user'),
+      Idkollen::BankIdSe::PhoneAuthRequest.new(ssn: '199001011234', call_initiator: 'USER'),
     )
     assert_kind_of Idkollen::BankIdSe::PendingPhone, result
   end
