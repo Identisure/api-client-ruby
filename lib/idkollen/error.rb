@@ -11,12 +11,11 @@ module Idkollen
   end
 
   class WaitError < StandardError
-    attr_reader :timeout, :cause
+    attr_reader :timeout
 
-    def initialize(timeout:, cause: nil)
+    def initialize(timeout:)
       @timeout = timeout
-      @cause = cause
-      super(timeout ? 'Poll timed out' : "Poll error: #{cause}")
+      super('Poll timed out')
     end
   end
 end

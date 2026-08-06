@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'faraday'
-require 'faraday/multipart'
-require 'json'
 
 require_relative 'version'
 require_relative 'environment'
@@ -59,23 +57,10 @@ module Idkollen
 
     def build
       base = @base_url || Environment.base_url(@environment)
-      conn = @http_client || build_default_connection(base)
-      Client.new(Transport.new(conn))
+      conn = @http_client || Faraday.new
+      Client.new(Transport.new(conn, base, @client_id, @client_secret))
     end
 
     def inspect = "#<#{self.class.name} client_id=#{@client_id.inspect}>"
-
-    private
-
-    def build_default_connection(base)
-      Faraday.new(url: base) do |f|
-        f.request :authorization, :basic, @client_id, @client_secret
-        f.request :multipart
-        f.request :json
-        f.response :json, content_type: /\bjson$/
-        f.headers['User-Agent'] = USER_AGENT
-        f.adapter Faraday.default_adapter
-      end
-    end
   end
 end

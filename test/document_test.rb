@@ -12,7 +12,7 @@ class DocumentTest < Minitest::Test
     @mock.enqueue(200, { 'id' => 'doc1', 'hash' => 'h1' })
     result = @client.document.upload('PDF-DATA', 'contract.pdf')
     assert_equal 'doc1', result.id
-    assert_equal 'h1', result.hash
+    assert_equal 'h1', result.document_hash
 
     req = @mock.last_request
     assert_equal :post, req[:method]

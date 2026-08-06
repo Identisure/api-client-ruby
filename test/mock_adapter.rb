@@ -37,15 +37,10 @@ class MockAdapter
   def last_request = @requests.last
   def last_request_body = last_request[:body]
 
-  def connection(client_id: 'cid', client_secret: 'sec', base_url: 'https://x.test')
+  def connection
     queue = @queue
     requests = @requests
-    Faraday.new(url: base_url) do |f|
-      f.request :authorization, :basic, client_id, client_secret
-      f.request :multipart
-      f.request :json
-      f.response :json, content_type: /\bjson$/
-      f.headers['User-Agent'] = Idkollen::USER_AGENT
+    Faraday.new do |f|
       f.adapter :test do |stubs|
         catch_all = proc do |env|
           requests << {

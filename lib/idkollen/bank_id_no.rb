@@ -54,21 +54,21 @@ module Idkollen
     end
 
     class SignResult
-      attr_reader :end_user, :merchant, :hash
-      def initialize(end_user:, merchant:, hash:)
-        @end_user = end_user; @merchant = merchant; @hash = hash
+      attr_reader :end_user, :merchant, :document_hash
+      def initialize(end_user:, merchant:, document_hash:)
+        @end_user = end_user; @merchant = merchant; @document_hash = document_hash
       end
-      def deconstruct_keys(_) = { end_user: @end_user, merchant: @merchant, hash: @hash }
-      def self.from_json(d) = new(end_user: d['endUser'], merchant: d['merchant'], hash: d['hash'])
+      def deconstruct_keys(_) = { end_user: @end_user, merchant: @merchant, document_hash: @document_hash }
+      def self.from_json(d) = new(end_user: d['endUser'], merchant: d['merchant'], document_hash: d['hash'])
     end
 
     class SignedDocument
-      attr_reader :id, :hash
-      def initialize(id:, hash:)
-        @id = id; @hash = hash
+      attr_reader :id, :document_hash
+      def initialize(id:, document_hash:)
+        @id = id; @document_hash = document_hash
       end
-      def deconstruct_keys(_) = { id: @id, hash: @hash }
-      def self.from_json(d) = new(id: d['id'], hash: d['hash'])
+      def deconstruct_keys(_) = { id: @id, document_hash: @document_hash }
+      def self.from_json(d) = new(id: d['id'], document_hash: d['hash'])
     end
 
     class Pending
