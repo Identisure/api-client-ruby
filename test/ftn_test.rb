@@ -16,6 +16,13 @@ class FtnTest < Minitest::Test
     assert_equal 'https://login', result.url
   end
 
+  def test_auth_unknown_status
+    @mock.enqueue(200, { 'status' => 'SOMETHING_NEW', 'id' => 'f1' })
+    result = @client.ftn.auth_status('f1')
+    assert_kind_of Idkollen::Ftn::Unknown, result
+    assert_equal 'SOMETHING_NEW', result.status
+  end
+
   def test_age_verification_completed
     @mock.enqueue(200, { 'status' => 'COMPLETED', 'id' => 'av1', 'ageVerified' => true })
     result = @client.ftn.age_verification(Idkollen::AgeVerification::Request.new(min_age: 18))

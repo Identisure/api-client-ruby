@@ -85,13 +85,24 @@ module Idkollen
       def self.from_json(d) = new(id: d['id'], ref_id: d['refId'], error: d['error'])
     end
 
+    class Unknown
+      attr_reader :status
+
+      def initialize(status:)
+        @status = status
+      end
+
+      def deconstruct_keys(_) = { status: @status }
+    end
+
     module Status
       def self.from_json(d)
         case d['status']
         when 'PENDING'   then Pending.from_json(d)
         when 'COMPLETED' then Completed.from_json(d)
         when 'FAILED'    then Failed.from_json(d)
-        else raise IdkollenError.new(0, "Unknown ftn status: #{d['status']}")
+        when String      then Unknown.new(status: d['status'])
+        else raise IdkollenError.new(0, "Invalid ftn status: #{d['status'].inspect}")
         end
       end
     end
