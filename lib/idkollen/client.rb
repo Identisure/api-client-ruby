@@ -15,6 +15,7 @@ require_relative 'mit_id'
 require_relative 'ftn'
 require_relative 'vipps'
 require_relative 'document'
+require_relative 'callback'
 
 module Idkollen
   class Client

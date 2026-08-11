@@ -46,6 +46,14 @@ in Idkollen::BankIdSe::Failed(error:)
 end
 ```
 
+### Verifying callbacks
+
+Verify the `X-Signature-SHA256` header against the raw request body before parsing it:
+
+```ruby
+valid = Idkollen.verify_callback_signature(raw_body, signature_header, 'hmac_secret')
+```
+
 ## Development
 
 ### Prerequisites
