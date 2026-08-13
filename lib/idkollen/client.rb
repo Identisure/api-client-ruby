@@ -39,6 +39,7 @@ module Idkollen
       @environment = Environment::PRODUCTION
       @base_url = nil
       @http_client = nil
+      @timeout = 30
     end
 
     def environment(env)
@@ -56,10 +57,18 @@ module Idkollen
       self
     end
 
+    # Timeout in seconds for each HTTP request. Defaults to 30.
+    def timeout(seconds)
+      raise ArgumentError, 'Timeout must be positive' unless seconds.positive?
+
+      @timeout = seconds
+      self
+    end
+
     def build
       base = @base_url || Environment.base_url(@environment)
       conn = @http_client || Faraday.new
-      Client.new(Transport.new(conn, base, @client_id, @client_secret))
+      Client.new(Transport.new(conn, base, @client_id, @client_secret, @timeout))
     end
 
     def inspect = "#<#{self.class.name} client_id=#{@client_id.inspect}>"

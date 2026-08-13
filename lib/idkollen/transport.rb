@@ -8,8 +8,9 @@ module Idkollen
   USER_AGENT = "idkollen-client-ruby/#{Idkollen::VERSION}"
 
   class Transport
-    def initialize(connection, base_url, client_id, client_secret)
+    def initialize(connection, base_url, client_id, client_secret, timeout)
       @conn = connection
+      @timeout = timeout
       @base_url = base_url.chomp('/')
       @authorization = "Basic #{["#{client_id}:#{client_secret}"].pack('m0')}"
     end
@@ -49,7 +50,9 @@ module Idkollen
 
     def send_request(method, path, body = nil, headers = {})
       headers = headers.merge('Authorization' => @authorization, 'User-Agent' => USER_AGENT)
-      res = @conn.run_request(method, @base_url + path, body, headers)
+      res = @conn.run_request(method, @base_url + path, body, headers) do |req|
+        req.options.timeout = @timeout
+      end
       raise IdkollenError.new(res.status, error_message(res.body)) unless res.success?
       res
     rescue Faraday::Error => e

@@ -39,4 +39,22 @@ class ClientTest < Minitest::Test
     assert_equal 400, err.status_code
     assert_includes err.message, 'bad request'
   end
+
+  def test_timeout_applies_to_requests
+    mock = MockAdapter.new
+    mock.enqueue(200, { 'ok' => true })
+    client = Idkollen::ClientBuilder.new('a', 'b').http_client(mock.connection).timeout(5).build
+    client.instance_variable_get(:@transport).get('/v3/ping')
+
+    assert_equal 5, mock.last_request[:timeout]
+  end
+
+  def test_default_timeout_is_30_seconds
+    mock = MockAdapter.new
+    mock.enqueue(200, { 'ok' => true })
+    client = Idkollen::ClientBuilder.new('a', 'b').http_client(mock.connection).build
+    client.instance_variable_get(:@transport).get('/v3/ping')
+
+    assert_equal 30, mock.last_request[:timeout]
+  end
 end

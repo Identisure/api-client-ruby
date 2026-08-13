@@ -49,6 +49,7 @@ class MockAdapter
             path: env.url.path,
             headers: env.request_headers.dup,
             body: env.body.dup,
+            timeout: env.request.timeout,
           }
           raise 'No mock responses queued' if queue.empty?
           status, body, content_type = queue.shift
