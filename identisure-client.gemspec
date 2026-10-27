@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
                      'Vipps and document upload.'
   spec.authors     = ['Identisure']
   spec.license     = 'MIT'
-  spec.homepage    = 'https://github.com/identisure/idk-clients'
+  spec.homepage    = 'https://github.com/identisure/api-client-ruby'
 
   spec.required_ruby_version = '>= 3.2.0'
 

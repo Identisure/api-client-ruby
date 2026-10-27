@@ -1,0 +1,8 @@
+# Ruby
+Gemfile.lock
+.bundle/
+vendor/bundle/
+*.gem
+
+# IDE
+.idea/

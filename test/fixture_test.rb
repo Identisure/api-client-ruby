@@ -4,7 +4,7 @@ require_relative 'test_helper'
 require 'json'
 
 class FixtureTest < Minitest::Test
-  FIXTURES = File.expand_path('../../fixtures', __dir__)
+  FIXTURES = File.expand_path('../fixtures', __dir__)
   FAST_POLL = Identisure::PollOptions.new(interval: 0.001)
   AUTH_HEADER = "Basic #{['cid:sec'].pack('m0')}".freeze
 

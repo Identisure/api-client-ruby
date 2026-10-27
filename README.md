@@ -1,4 +1,4 @@
-<img align="left" height="100" style="margin-right: 10px;" src="../img/icon.png">
+<img align="left" height="100" style="margin-right: 10px;" src="img/icon.png">
 
 # Identisure Ruby Client
 
@@ -62,6 +62,8 @@ valid = Identisure.verify_callback_signature(raw_body, signature_header, 'hmac_s
 - Bundler
 
 ### Setup / Build / Test
+
+The test fixtures live in a Git submodule. Clone with `--recurse-submodules`, or run `git submodule update --init` in an existing clone.
 
 ```sh
 bundle install
