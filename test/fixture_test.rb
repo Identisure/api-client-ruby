@@ -5,33 +5,33 @@ require 'json'
 
 class FixtureTest < Minitest::Test
   FIXTURES = File.expand_path('../../fixtures', __dir__)
-  FAST_POLL = Idkollen::PollOptions.new(interval: 0.001)
+  FAST_POLL = Identisure::PollOptions.new(interval: 0.001)
   AUTH_HEADER = "Basic #{['cid:sec'].pack('m0')}"
 
   Flow = Struct.new(:dir, :segment, :mod, :start_auth, :start_sign)
 
   FLOWS = [
-    Flow.new('bankid_se', 'bankid-se', Idkollen::BankIdSe,
-             ->(c) { c.bank_id_se.auth(Idkollen::BankIdSe::AuthRequest.new) },
-             ->(c) { c.bank_id_se.sign(Idkollen::BankIdSe::SignRequest.new(text: 'Sign this')) }),
-    Flow.new('bankid_no', 'bankid-no', Idkollen::BankIdNo,
-             ->(c) { c.bank_id_no.auth(Idkollen::BankIdNo::AuthRequest.new) },
-             ->(c) { c.bank_id_no.sign(Idkollen::BankIdNo::SignRequest.new(text: 'Sign this')) }),
-    Flow.new('freja', 'freja', Idkollen::Freja,
-             ->(c) { c.freja.auth(Idkollen::Freja::AuthRequest.new) },
-             ->(c) { c.freja.sign(Idkollen::Freja::SignRequest.new(text: 'Sign this')) }),
-    Flow.new('mitid', 'mitid', Idkollen::MitId,
-             ->(c) { c.mit_id.auth(Idkollen::MitId::AuthRequest.new) },
-             ->(c) { c.mit_id.sign(Idkollen::MitId::SignRequest.new(text: 'Sign this')) }),
-    Flow.new('ftn', 'ftn', Idkollen::Ftn,
-             ->(c) { c.ftn.auth(Idkollen::Ftn::AuthRequest.new) }, nil),
-    Flow.new('vipps', 'vipps', Idkollen::Vipps,
-             ->(c) { c.vipps.auth(Idkollen::Vipps::AuthRequest.new) }, nil),
+    Flow.new('bankid_se', 'bankid-se', Identisure::BankIdSe,
+             ->(c) { c.bank_id_se.auth(Identisure::BankIdSe::AuthRequest.new) },
+             ->(c) { c.bank_id_se.sign(Identisure::BankIdSe::SignRequest.new(text: 'Sign this')) }),
+    Flow.new('bankid_no', 'bankid-no', Identisure::BankIdNo,
+             ->(c) { c.bank_id_no.auth(Identisure::BankIdNo::AuthRequest.new) },
+             ->(c) { c.bank_id_no.sign(Identisure::BankIdNo::SignRequest.new(text: 'Sign this')) }),
+    Flow.new('freja', 'freja', Identisure::Freja,
+             ->(c) { c.freja.auth(Identisure::Freja::AuthRequest.new) },
+             ->(c) { c.freja.sign(Identisure::Freja::SignRequest.new(text: 'Sign this')) }),
+    Flow.new('mitid', 'mitid', Identisure::MitId,
+             ->(c) { c.mit_id.auth(Identisure::MitId::AuthRequest.new) },
+             ->(c) { c.mit_id.sign(Identisure::MitId::SignRequest.new(text: 'Sign this')) }),
+    Flow.new('ftn', 'ftn', Identisure::Ftn,
+             ->(c) { c.ftn.auth(Identisure::Ftn::AuthRequest.new) }, nil),
+    Flow.new('vipps', 'vipps', Identisure::Vipps,
+             ->(c) { c.vipps.auth(Identisure::Vipps::AuthRequest.new) }, nil),
   ].freeze
 
   def setup
     @mock = MockAdapter.new
-    @client = Idkollen::ClientBuilder.new('cid', 'sec').base_url('https://x.test').http_client(@mock.connection).build
+    @client = Identisure::ClientBuilder.new('cid', 'sec').base_url('https://x.test').http_client(@mock.connection).build
   end
 
   FLOWS.each do |flow|
@@ -91,14 +91,14 @@ class FixtureTest < Minitest::Test
     @mock.enqueue(201, raw('bankid_se/phone_auth_pending.json'))
     @mock.enqueue(200, raw('bankid_se/auth_completed.json'))
 
-    req = Idkollen::BankIdSe::PhoneAuthRequest.new(ssn: '199001011239', call_initiator: 'USER')
+    req = Identisure::BankIdSe::PhoneAuthRequest.new(ssn: '199001011239', call_initiator: 'USER')
     pending = @client.bank_id_se.phone_auth(req)
-    assert_kind_of Idkollen::BankIdSe::PendingPhone, pending
+    assert_kind_of Identisure::BankIdSe::PendingPhone, pending
     assert_equal id, pending.id
     assert_nil pending.hint_code
 
     result = @client.bank_id_se.wait_for_auth(id, opts: FAST_POLL)
-    assert_kind_of Idkollen::BankIdSe::Completed, result
+    assert_kind_of Identisure::BankIdSe::Completed, result
     assert_matches fixture('bankid_se/auth_completed.json'), result
     assert_requests [['post', '/v3/bankid-se/phone/auth'], ['get', "/v3/bankid-se/auth/#{id}"]]
   end
@@ -106,7 +106,7 @@ class FixtureTest < Minitest::Test
   def test_bank_id_se_verify
     @mock.enqueue(200, raw('bankid_se/verify.json'))
 
-    result = @client.bank_id_se.verify(Idkollen::BankIdSe::VerifyRequest.new(qr_code: 'bankidqr.1.2.3'))
+    result = @client.bank_id_se.verify(Identisure::BankIdSe::VerifyRequest.new(qr_code: 'bankidqr.1.2.3'))
 
     assert_matches fixture('bankid_se/verify.json'), result
     assert_requests [['post', '/v3/bankid-se/verify']]
@@ -115,12 +115,12 @@ class FixtureTest < Minitest::Test
   def test_age_verification_completes
     id = enqueue_flow('age_verification/pending.json', 'age_verification/completed.json')
 
-    pending = @client.bank_id_se.age_verification(Idkollen::AgeVerification::Request.new(min_age: 18))
-    assert_kind_of Idkollen::AgeVerification::Pending, pending
+    pending = @client.bank_id_se.age_verification(Identisure::AgeVerification::Request.new(min_age: 18))
+    assert_kind_of Identisure::AgeVerification::Pending, pending
     assert_matches fixture('age_verification/pending.json'), pending
 
     result = @client.bank_id_se.wait_for_age_verification(id, opts: FAST_POLL)
-    assert_kind_of Idkollen::AgeVerification::Completed, result
+    assert_kind_of Identisure::AgeVerification::Completed, result
     assert_matches fixture('age_verification/completed.json'), result
     assert_requests [['post', '/v3/bankid-se/age-verification'],
                      ['get', "/v3/bankid-se/age-verification/#{id}"],
@@ -129,19 +129,19 @@ class FixtureTest < Minitest::Test
 
   def test_age_verification_fails
     id = enqueue_terminal('age_verification/pending.json', 'age_verification/failed.json')
-    @client.bank_id_se.age_verification(Idkollen::AgeVerification::Request.new(min_age: 18))
+    @client.bank_id_se.age_verification(Identisure::AgeVerification::Request.new(min_age: 18))
 
     result = @client.bank_id_se.wait_for_age_verification(id, opts: FAST_POLL)
-    assert_kind_of Idkollen::AgeVerification::Failed, result
+    assert_kind_of Identisure::AgeVerification::Failed, result
     assert_matches fixture('age_verification/failed.json'), result
   end
 
   def test_age_verification_unknown_status
     id = enqueue_terminal('age_verification/pending.json', 'age_verification/unknown.json')
-    @client.bank_id_se.age_verification(Idkollen::AgeVerification::Request.new(min_age: 18))
+    @client.bank_id_se.age_verification(Identisure::AgeVerification::Request.new(min_age: 18))
 
     result = @client.bank_id_se.wait_for_age_verification(id, opts: FAST_POLL)
-    assert_kind_of Idkollen::AgeVerification::Unknown, result
+    assert_kind_of Identisure::AgeVerification::Unknown, result
     assert_equal 'SOMETHING_NEW', result.status
   end
 
@@ -157,7 +157,7 @@ class FixtureTest < Minitest::Test
   def test_error_response
     @mock.enqueue(400, raw('error.json'))
 
-    err = assert_raises(Idkollen::IdkollenError) { @client.ftn.auth(Idkollen::Ftn::AuthRequest.new) }
+    err = assert_raises(Identisure::IdentisureError) { @client.ftn.auth(Identisure::Ftn::AuthRequest.new) }
     assert_equal 400, err.status_code
     assert_includes err.message, 'Invalid request'
   end

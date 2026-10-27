@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Idkollen
+module Identisure
   class PollOptions
     attr_reader :interval, :timeout
 

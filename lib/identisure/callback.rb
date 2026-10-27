@@ -2,7 +2,7 @@
 
 require 'openssl'
 
-module Idkollen
+module Identisure
   # Verifies the X-Signature-SHA256 header of a callback request. Pass the raw request body as
   # received, before parsing it.
   def self.verify_callback_signature(body, signature, secret)

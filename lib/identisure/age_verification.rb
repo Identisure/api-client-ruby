@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Idkollen
+module Identisure
   module AgeVerification
     class Request
       attr_reader :min_age, :max_age, :ref_id, :callback_url, :redirect_url
@@ -79,7 +79,7 @@ module Idkollen
         when 'COMPLETED' then Completed.from_json(d)
         when 'FAILED'    then Failed.from_json(d)
         when String      then Unknown.new(status: d['status'])
-        else raise IdkollenError.new(0, "Invalid age verification status: #{d['status'].inspect}")
+        else raise IdentisureError.new(0, "Invalid age verification status: #{d['status'].inspect}")
         end
       end
     end

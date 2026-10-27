@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Idkollen
+module Identisure
   module Ftn
     # --- Request ---
 
@@ -102,7 +102,7 @@ module Idkollen
         when 'COMPLETED' then Completed.from_json(d)
         when 'FAILED'    then Failed.from_json(d)
         when String      then Unknown.new(status: d['status'])
-        else raise IdkollenError.new(0, "Invalid ftn status: #{d['status'].inspect}")
+        else raise IdentisureError.new(0, "Invalid ftn status: #{d['status'].inspect}")
         end
       end
     end
@@ -119,13 +119,13 @@ module Idkollen
       end
 
       def age_verification(req)
-        Idkollen::AgeVerification::Status.from_json(@transport.post('/v3/ftn/age-verification', req.to_h))
+        Identisure::AgeVerification::Status.from_json(@transport.post('/v3/ftn/age-verification', req.to_h))
       end
 
       def auth_status(id) = Status.from_json(@transport.get("/v3/ftn/auth/#{id}"))
 
       def age_verification_status(id)
-        Idkollen::AgeVerification::Status.from_json(@transport.get("/v3/ftn/age-verification/#{id}"))
+        Identisure::AgeVerification::Status.from_json(@transport.get("/v3/ftn/age-verification/#{id}"))
       end
 
       def cancel_auth(id)             = @transport.delete("/v3/ftn/auth/#{id}")
@@ -155,7 +155,7 @@ module Idkollen
         deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + opts.timeout
         loop do
           status = yield
-          return status unless status.is_a?(Idkollen::AgeVerification::Pending)
+          return status unless status.is_a?(Identisure::AgeVerification::Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
           sleep opts.interval
         end

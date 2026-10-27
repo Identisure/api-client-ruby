@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Idkollen
+module Identisure
   module Vipps
     class AuthRequest
       attr_reader :redirect_url, :request_ssn, :request_phone, :request_email,
@@ -118,7 +118,7 @@ module Idkollen
         when 'COMPLETED' then Completed.from_json(d)
         when 'FAILED'    then Failed.from_json(d)
         when String      then Unknown.new(status: d['status'])
-        else raise IdkollenError.new(0, "Invalid vipps status: #{d['status'].inspect}")
+        else raise IdentisureError.new(0, "Invalid vipps status: #{d['status'].inspect}")
         end
       end
     end

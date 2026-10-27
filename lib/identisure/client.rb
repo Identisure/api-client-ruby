@@ -17,7 +17,7 @@ require_relative 'vipps'
 require_relative 'document'
 require_relative 'callback'
 
-module Idkollen
+module Identisure
   class Client
     def initialize(transport)
       @transport = transport

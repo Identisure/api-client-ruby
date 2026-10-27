@@ -5,13 +5,13 @@ require_relative 'test_helper'
 class MitIdTest < Minitest::Test
   def setup
     @mock = MockAdapter.new
-    @client = Idkollen::ClientBuilder.new('cid', 'sec').http_client(@mock.connection).build
+    @client = Identisure::ClientBuilder.new('cid', 'sec').http_client(@mock.connection).build
   end
 
   def test_auth_pending
     @mock.enqueue(200, { 'status' => 'PENDING', 'id' => 'm1', 'url' => 'https://mitid.login' })
-    result = @client.mit_id.auth(Idkollen::MitId::AuthRequest.new)
-    assert_kind_of Idkollen::MitId::Pending, result
+    result = @client.mit_id.auth(Identisure::MitId::AuthRequest.new)
+    assert_kind_of Identisure::MitId::Pending, result
     assert_equal 'https://mitid.login', result.url
   end
 
@@ -22,8 +22,8 @@ class MitIdTest < Minitest::Test
       'signResult' => { 'checksum' => 'abc123' },
     })
     result = @client.mit_id.sign_status('m1')
-    assert_kind_of Idkollen::MitId::Completed, result
-    assert_kind_of Idkollen::MitId::SignResult, result.sign_result
+    assert_kind_of Identisure::MitId::Completed, result
+    assert_kind_of Identisure::MitId::SignResult, result.sign_result
     assert_equal 'abc123', result.sign_result.checksum
   end
 end

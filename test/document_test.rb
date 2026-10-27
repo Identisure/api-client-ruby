@@ -5,7 +5,7 @@ require_relative 'test_helper'
 class DocumentTest < Minitest::Test
   def setup
     @mock = MockAdapter.new
-    @client = Idkollen::ClientBuilder.new('cid', 'sec').http_client(@mock.connection).build
+    @client = Identisure::ClientBuilder.new('cid', 'sec').http_client(@mock.connection).build
   end
 
   def test_upload

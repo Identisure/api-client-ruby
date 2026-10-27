@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Idkollen
+module Identisure
   module Document
     class UploadResponse
       attr_reader :id, :document_hash

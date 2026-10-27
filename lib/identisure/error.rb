@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-module Idkollen
-  class IdkollenError < StandardError
+module Identisure
+  class IdentisureError < StandardError
     attr_reader :status_code
 
     def initialize(status_code, message)
       @status_code = status_code
-      super("idkollen: #{status_code} #{message}")
+      super("identisure: #{status_code} #{message}")
     end
   end
 

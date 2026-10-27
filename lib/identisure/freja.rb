@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Idkollen
+module Identisure
   module Freja
     class AuthRequest
       attr_reader :ssn, :callback_url, :min_registration_level, :org_number,
@@ -159,7 +159,7 @@ module Idkollen
         when 'COMPLETED' then Completed.from_json(d)
         when 'FAILED'    then Failed.from_json(d)
         when String      then Unknown.new(status: d['status'])
-        else raise IdkollenError.new(0, "Invalid freja status: #{d['status'].inspect}")
+        else raise IdentisureError.new(0, "Invalid freja status: #{d['status'].inspect}")
         end
       end
     end
@@ -179,11 +179,11 @@ module Idkollen
       def cancel_sign(id)            = @transport.delete("/v3/freja/sign/#{id}")
 
       def age_verification(req)
-        Idkollen::AgeVerification::Status.from_json(@transport.post('/v3/freja/age-verification', req.to_h))
+        Identisure::AgeVerification::Status.from_json(@transport.post('/v3/freja/age-verification', req.to_h))
       end
 
       def age_verification_status(id)
-        Idkollen::AgeVerification::Status.from_json(@transport.get("/v3/freja/age-verification/#{id}"))
+        Identisure::AgeVerification::Status.from_json(@transport.get("/v3/freja/age-verification/#{id}"))
       end
 
       def cancel_age_verification(id) = @transport.delete("/v3/freja/age-verification/#{id}")
@@ -211,7 +211,7 @@ module Idkollen
         deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + opts.timeout
         loop do
           status = yield
-          return status unless status.is_a?(Idkollen::AgeVerification::Pending)
+          return status unless status.is_a?(Identisure::AgeVerification::Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
           sleep opts.interval
         end

@@ -4,8 +4,8 @@ require 'faraday'
 require 'json'
 require 'securerandom'
 
-module Idkollen
-  USER_AGENT = "idkollen-client-ruby/#{Idkollen::VERSION}"
+module Identisure
+  USER_AGENT = "identisure-client-ruby/#{Identisure::VERSION}"
 
   class Transport
     def initialize(connection, base_url, client_id, client_secret, timeout)
@@ -35,7 +35,7 @@ module Idkollen
     end
 
     def post_multipart(path, data, filename, mime_type)
-      boundary = "idkollen-#{SecureRandom.hex(16)}"
+      boundary = "identisure-#{SecureRandom.hex(16)}"
       escaped = filename.gsub('"', '%22').gsub("\r", '%0D').gsub("\n", '%0A')
       body = String.new(encoding: Encoding::BINARY)
       body << "--#{boundary}\r\n".b
@@ -53,10 +53,10 @@ module Idkollen
       res = @conn.run_request(method, @base_url + path, body, headers) do |req|
         req.options.timeout = @timeout
       end
-      raise IdkollenError.new(res.status, error_message(res.body)) unless res.success?
+      raise IdentisureError.new(res.status, error_message(res.body)) unless res.success?
       res
     rescue Faraday::Error => e
-      raise IdkollenError.new(0, e.message)
+      raise IdentisureError.new(0, e.message)
     end
 
     def parse(res)
@@ -64,11 +64,11 @@ module Idkollen
       return body if body.is_a?(Hash)
 
       parsed = JSON.parse(body.to_s)
-      raise IdkollenError.new(res.status, 'Response body is not a JSON object') unless parsed.is_a?(Hash)
+      raise IdentisureError.new(res.status, 'Response body is not a JSON object') unless parsed.is_a?(Hash)
 
       parsed
     rescue JSON::ParserError => e
-      raise IdkollenError.new(res.status, "Invalid JSON response: #{e.message}")
+      raise IdentisureError.new(res.status, "Invalid JSON response: #{e.message}")
     end
 
     def error_message(body)
