@@ -6,8 +6,8 @@ module Identisure
     STAGING    = :staging
 
     BASE_URLS = {
-      PRODUCTION => 'https://api.identisure.com',
-      STAGING => 'https://stgapi.identisure.com',
+      PRODUCTION => 'https://api.idkollen.se',
+      STAGING => 'https://stgapi.idkollen.se',
     }.freeze
 
     def self.base_url(env)
