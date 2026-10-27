@@ -11,6 +11,7 @@ class BankIdNoTest < Minitest::Test
   def test_auth_pending
     @mock.enqueue(200, { 'status' => 'PENDING', 'id' => 'no1', 'url' => 'https://login' })
     result = @client.bank_id_no.auth(Identisure::BankIdNo::AuthRequest.new(request_ssn: true))
+
     assert_kind_of Identisure::BankIdNo::Pending, result
     assert_equal 'https://login', result.url
   end
@@ -22,9 +23,10 @@ class BankIdNoTest < Minitest::Test
       'signedDocuments' => [
         { 'id' => 'd1', 'hash' => 'h1' },
         { 'id' => 'd2', 'hash' => 'h2' },
-      ],
+      ]
     })
     result = @client.bank_id_no.auth_status('no1')
+
     assert_kind_of Identisure::BankIdNo::Completed, result
     assert_equal 2, result.signed_documents.length
     assert_equal 'd1', result.signed_documents[0].id

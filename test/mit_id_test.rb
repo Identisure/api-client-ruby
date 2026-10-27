@@ -11,6 +11,7 @@ class MitIdTest < Minitest::Test
   def test_auth_pending
     @mock.enqueue(200, { 'status' => 'PENDING', 'id' => 'm1', 'url' => 'https://mitid.login' })
     result = @client.mit_id.auth(Identisure::MitId::AuthRequest.new)
+
     assert_kind_of Identisure::MitId::Pending, result
     assert_equal 'https://mitid.login', result.url
   end
@@ -19,9 +20,10 @@ class MitIdTest < Minitest::Test
     @mock.enqueue(200, {
       'status' => 'COMPLETED', 'id' => 'm1', 'ssn' => '0101010000',
       'name' => 'Hans', 'givenName' => 'Hans', 'surname' => 'H',
-      'signResult' => { 'checksum' => 'abc123' },
+      'signResult' => { 'checksum' => 'abc123' }
     })
     result = @client.mit_id.sign_status('m1')
+
     assert_kind_of Identisure::MitId::Completed, result
     assert_kind_of Identisure::MitId::SignResult, result.sign_result
     assert_equal 'abc123', result.sign_result.checksum

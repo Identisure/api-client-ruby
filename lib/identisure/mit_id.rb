@@ -17,7 +17,7 @@ module Identisure
         {
           redirectUrl: @redirect_url, referenceText: @reference_text,
           requestPhone: @request_phone, requestEmail: @request_email,
-          requestAddress: @request_address, refId: @ref_id,
+          requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
@@ -33,7 +33,7 @@ module Identisure
       def to_h
         {
           ssn: @ssn, bindingMessage: @binding_message,
-          callbackUrl: @callback_url, refId: @ref_id,
+          callbackUrl: @callback_url, refId: @ref_id
         }.compact
       end
     end
@@ -108,7 +108,7 @@ module Identisure
           email: d['email'], address: d['address'], birth_date: d['birthDate'],
           pid: d['pid'], bank_id: d['bankId'],
           sign_result: d['signResult'] ? SignResult.from_json(d['signResult']) : nil,
-          authenticated_at: d['authenticatedAt'], signed_at: d['signedAt'],
+          authenticated_at: d['authenticatedAt'], signed_at: d['signedAt']
         )
       end
     end
@@ -184,6 +184,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end
@@ -194,6 +195,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Identisure::AgeVerification::Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end

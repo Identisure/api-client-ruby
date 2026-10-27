@@ -11,6 +11,7 @@ class FrejaTest < Minitest::Test
   def test_auth_pending
     @mock.enqueue(200, { 'status' => 'PENDING', 'id' => 'f1', 'autoStartToken' => 'tok', 'qrData' => 'qr' })
     result = @client.freja.auth(Identisure::Freja::AuthRequest.new)
+
     assert_kind_of Identisure::Freja::Pending, result
     assert_equal 'qr', result.qr_data
   end
@@ -19,9 +20,10 @@ class FrejaTest < Minitest::Test
     @mock.enqueue(200, {
       'status' => 'COMPLETED', 'id' => 'f2', 'ssn' => '19900101-1234',
       'country' => 'SE', 'name' => 'Anna Svensson',
-      'givenName' => 'Anna', 'surname' => 'Svensson',
+      'givenName' => 'Anna', 'surname' => 'Svensson'
     })
     result = @client.freja.auth_status('f2')
+
     assert_kind_of Identisure::Freja::Completed, result
     assert_equal 'SE', result.country
   end

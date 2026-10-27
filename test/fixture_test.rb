@@ -6,7 +6,7 @@ require 'json'
 class FixtureTest < Minitest::Test
   FIXTURES = File.expand_path('../../fixtures', __dir__)
   FAST_POLL = Identisure::PollOptions.new(interval: 0.001)
-  AUTH_HEADER = "Basic #{['cid:sec'].pack('m0')}"
+  AUTH_HEADER = "Basic #{['cid:sec'].pack('m0')}".freeze
 
   Flow = Struct.new(:dir, :segment, :mod, :start_auth, :start_sign)
 
@@ -40,10 +40,12 @@ class FixtureTest < Minitest::Test
       endpoint = endpoint_for(flow)
 
       pending = flow.start_auth.call(@client)
+
       assert_kind_of flow.mod::Pending, pending
       assert_matches fixture("#{flow.dir}/auth_pending.json"), pending
 
       result = endpoint.wait_for_auth(id, opts: FAST_POLL)
+
       assert_kind_of flow.mod::Completed, result
       assert_matches fixture("#{flow.dir}/auth_completed.json"), result
       assert_requests [['post', "/v3/#{flow.segment}/auth"],
@@ -56,6 +58,7 @@ class FixtureTest < Minitest::Test
       flow.start_auth.call(@client)
 
       result = endpoint_for(flow).wait_for_auth(id, opts: FAST_POLL)
+
       assert_kind_of flow.mod::Failed, result
       assert_matches fixture("#{flow.dir}/auth_failed.json"), result
       assert_equal 'CANCELLED', result.error
@@ -66,6 +69,7 @@ class FixtureTest < Minitest::Test
       flow.start_auth.call(@client)
 
       result = endpoint_for(flow).wait_for_auth(id, opts: FAST_POLL)
+
       assert_kind_of flow.mod::Unknown, result
       assert_equal 'SOMETHING_NEW', result.status
     end
@@ -78,6 +82,7 @@ class FixtureTest < Minitest::Test
       assert_kind_of flow.mod::Pending, flow.start_sign.call(@client)
 
       result = endpoint_for(flow).wait_for_sign(id, opts: FAST_POLL)
+
       assert_kind_of flow.mod::Completed, result
       assert_matches fixture("#{flow.dir}/sign_completed.json"), result
       assert_requests [['post', "/v3/#{flow.segment}/sign"],
@@ -93,11 +98,13 @@ class FixtureTest < Minitest::Test
 
     req = Identisure::BankIdSe::PhoneAuthRequest.new(ssn: '199001011239', call_initiator: 'USER')
     pending = @client.bank_id_se.phone_auth(req)
+
     assert_kind_of Identisure::BankIdSe::PendingPhone, pending
     assert_equal id, pending.id
     assert_nil pending.hint_code
 
     result = @client.bank_id_se.wait_for_auth(id, opts: FAST_POLL)
+
     assert_kind_of Identisure::BankIdSe::Completed, result
     assert_matches fixture('bankid_se/auth_completed.json'), result
     assert_requests [['post', '/v3/bankid-se/phone/auth'], ['get', "/v3/bankid-se/auth/#{id}"]]
@@ -116,10 +123,12 @@ class FixtureTest < Minitest::Test
     id = enqueue_flow('age_verification/pending.json', 'age_verification/completed.json')
 
     pending = @client.bank_id_se.age_verification(Identisure::AgeVerification::Request.new(min_age: 18))
+
     assert_kind_of Identisure::AgeVerification::Pending, pending
     assert_matches fixture('age_verification/pending.json'), pending
 
     result = @client.bank_id_se.wait_for_age_verification(id, opts: FAST_POLL)
+
     assert_kind_of Identisure::AgeVerification::Completed, result
     assert_matches fixture('age_verification/completed.json'), result
     assert_requests [['post', '/v3/bankid-se/age-verification'],
@@ -132,6 +141,7 @@ class FixtureTest < Minitest::Test
     @client.bank_id_se.age_verification(Identisure::AgeVerification::Request.new(min_age: 18))
 
     result = @client.bank_id_se.wait_for_age_verification(id, opts: FAST_POLL)
+
     assert_kind_of Identisure::AgeVerification::Failed, result
     assert_matches fixture('age_verification/failed.json'), result
   end
@@ -141,6 +151,7 @@ class FixtureTest < Minitest::Test
     @client.bank_id_se.age_verification(Identisure::AgeVerification::Request.new(min_age: 18))
 
     result = @client.bank_id_se.wait_for_age_verification(id, opts: FAST_POLL)
+
     assert_kind_of Identisure::AgeVerification::Unknown, result
     assert_equal 'SOMETHING_NEW', result.status
   end
@@ -188,7 +199,7 @@ class FixtureTest < Minitest::Test
   end
 
   def assert_requests(expected)
-    assert_equal expected, @mock.requests.map { [_1[:method].to_s, _1[:path]] }
+    assert_equal(expected, @mock.requests.map { [_1[:method].to_s, _1[:path]] })
     @mock.requests.each { assert_equal AUTH_HEADER, _1[:headers]['Authorization'] }
   end
 
@@ -201,6 +212,7 @@ class FixtureTest < Minitest::Test
         next if key == 'status' && path.empty?
 
         reader = key == 'hash' ? 'document_hash' : key.gsub(/([A-Z])/) { "_#{Regexp.last_match(1).downcase}" }
+
         assert_respond_to actual, reader, "#{path}.#{key}"
         assert_matches value, actual.public_send(reader), "#{path}.#{key}"
       end
@@ -208,6 +220,7 @@ class FixtureTest < Minitest::Test
       assert_equal expected.length, actual.length, path
       expected.zip(actual).each { |e, a| assert_matches e, a, path }
     when nil
+
       assert_nil actual, path
     else
       assert_equal expected, actual, path

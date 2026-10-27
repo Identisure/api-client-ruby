@@ -17,7 +17,7 @@ module Identisure
         {
           ssn: @ssn, callbackUrl: @callback_url,
           minRegistrationLevel: @min_registration_level, orgNumber: @org_number,
-          requestAddress: @request_address, refId: @ref_id,
+          requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
@@ -37,7 +37,7 @@ module Identisure
         {
           ssn: @ssn, country: @country, callbackUrl: @callback_url,
           minRegistrationLevel: @min_registration_level, orgNumber: @org_number,
-          requestAddress: @request_address, refId: @ref_id,
+          requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
@@ -57,7 +57,7 @@ module Identisure
         {
           text: @text, ssn: @ssn, callbackUrl: @callback_url,
           minRegistrationLevel: @min_registration_level, orgNumber: @org_number,
-          requestAddress: @request_address, refId: @ref_id,
+          requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
@@ -77,7 +77,7 @@ module Identisure
         {
           ssn: @ssn, country: @country, text: @text, callbackUrl: @callback_url,
           minRegistrationLevel: @min_registration_level, orgNumber: @org_number,
-          requestAddress: @request_address, refId: @ref_id,
+          requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
@@ -125,7 +125,7 @@ module Identisure
           id: d['id'], ref_id: d['refId'], ssn: d['ssn'], country: d['country'],
           name: d['name'], given_name: d['givenName'], surname: d['surname'],
           address: d['address'], company_signatory_text: d['companySignatoryText'],
-          authenticated_at: d['authenticatedAt'], signed_at: d['signedAt'],
+          authenticated_at: d['authenticatedAt'], signed_at: d['signedAt']
         )
       end
     end
@@ -203,6 +203,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end
@@ -213,6 +214,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Identisure::AgeVerification::Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end

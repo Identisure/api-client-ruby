@@ -6,7 +6,8 @@ Gem::Specification.new do |spec|
   spec.name        = 'identisure-client'
   spec.version     = Identisure::VERSION
   spec.summary     = 'Ruby client for the Identisure REST API'
-  spec.description = 'Synchronous Ruby client for Identisure, supporting BankID SE/NO, Freja, MitID, FTN, Vipps and document upload.'
+  spec.description = 'Synchronous Ruby client for Identisure, supporting BankID SE/NO, Freja, MitID, FTN, ' \
+                     'Vipps and document upload.'
   spec.authors     = ['Identisure']
   spec.license     = 'MIT'
   spec.homepage    = 'https://github.com/identisure/idk-clients'

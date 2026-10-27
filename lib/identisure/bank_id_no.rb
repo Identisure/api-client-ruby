@@ -20,7 +20,7 @@ module Identisure
           redirectUrl: @redirect_url, requestSsn: @request_ssn,
           requestPhone: @request_phone, requestEmail: @request_email,
           requestAddress: @request_address, refId: @ref_id,
-          appCallbackUri: @app_callback_uri,
+          appCallbackUri: @app_callback_uri
         }.compact
       end
     end
@@ -48,35 +48,42 @@ module Identisure
       def to_h
         {
           redirectUrl: @redirect_url, text: @text, documents: @documents,
-          refId: @ref_id,
+          refId: @ref_id
         }.compact
       end
     end
 
     class SignResult
       attr_reader :end_user, :merchant, :document_hash
+
       def initialize(end_user:, merchant:, document_hash:)
         @end_user = end_user; @merchant = merchant; @document_hash = document_hash
       end
+
       def deconstruct_keys(_) = { end_user: @end_user, merchant: @merchant, document_hash: @document_hash }
       def self.from_json(d) = new(end_user: d['endUser'], merchant: d['merchant'], document_hash: d['hash'])
     end
 
     class SignedDocument
       attr_reader :id, :document_hash
+
       def initialize(id:, document_hash:)
         @id = id; @document_hash = document_hash
       end
+
       def deconstruct_keys(_) = { id: @id, document_hash: @document_hash }
       def self.from_json(d) = new(id: d['id'], document_hash: d['hash'])
     end
 
     class Pending
       attr_reader :id, :ref_id, :url, :binding_message
+
       def initialize(id:, ref_id: nil, url: nil, binding_message: nil)
         @id = id; @ref_id = ref_id; @url = url; @binding_message = binding_message
       end
+
       def deconstruct_keys(_) = { id: @id, ref_id: @ref_id, url: @url, binding_message: @binding_message }
+
       def self.from_json(d)
         new(id: d['id'], ref_id: d['refId'], url: d['url'], binding_message: d['bindingMessage'])
       end
@@ -115,16 +122,18 @@ module Identisure
           pid: d['pid'], bank_id: d['bankId'],
           sign_result: d['signResult'] ? SignResult.from_json(d['signResult']) : nil,
           signed_documents: d['signedDocuments']&.map { SignedDocument.from_json(_1) },
-          authenticated_at: d['authenticatedAt'], signed_at: d['signedAt'],
+          authenticated_at: d['authenticatedAt'], signed_at: d['signedAt']
         )
       end
     end
 
     class Failed
       attr_reader :id, :ref_id, :error
+
       def initialize(id:, error:, ref_id: nil)
         @id = id; @ref_id = ref_id; @error = error
       end
+
       def deconstruct_keys(_) = { id: @id, ref_id: @ref_id, error: @error }
       def self.from_json(d) = new(id: d['id'], ref_id: d['refId'], error: d['error'])
     end
@@ -189,6 +198,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end
@@ -199,6 +209,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Identisure::AgeVerification::Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end

@@ -20,7 +20,7 @@ module Identisure
           redirectUrl: @redirect_url, requestSsn: @request_ssn,
           requestPhone: @request_phone, requestEmail: @request_email,
           requestAddress: @request_address, refId: @ref_id,
-          appCallbackUri: @app_callback_uri,
+          appCallbackUri: @app_callback_uri
         }.compact
       end
     end
@@ -40,7 +40,7 @@ module Identisure
         {
           phone: @phone, requestSsn: @request_ssn,
           requestEmail: @request_email, requestAddress: @request_address,
-          callbackUrl: @callback_url, refId: @ref_id,
+          callbackUrl: @callback_url, refId: @ref_id
         }.compact
       end
     end
@@ -84,7 +84,7 @@ module Identisure
           given_name: d['givenName'], surname: d['surname'], phone: d['phone'],
           email: d['email'], address: d['address'], birth_date: d['birthDate'],
           pid: d['pid'], bank_id: d['bankId'],
-          authenticated_at: d['authenticatedAt'],
+          authenticated_at: d['authenticatedAt']
         )
       end
     end
@@ -143,6 +143,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end

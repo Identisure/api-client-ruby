@@ -24,7 +24,7 @@ module Identisure
         {
           ssn: @ssn, ipAddress: @ip_address, callbackUrl: @callback_url,
           pinRequired: @pin_required, intent: @intent, orgNumber: @org_number,
-          requestAddress: @request_address, refId: @ref_id,
+          requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
@@ -49,7 +49,7 @@ module Identisure
         {
           ssn: @ssn, callInitiator: @call_initiator, callbackUrl: @callback_url,
           pinRequired: @pin_required, intent: @intent, orgNumber: @org_number,
-          requestAddress: @request_address, refId: @ref_id,
+          requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
@@ -69,7 +69,7 @@ module Identisure
         {
           text: @text, ssn: @ssn, ipAddress: @ip_address, callbackUrl: @callback_url,
           pinRequired: @pin_required, digest: @digest, orgNumber: @org_number,
-          requestAddress: @request_address, refId: @ref_id,
+          requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
@@ -89,13 +89,14 @@ module Identisure
         {
           ssn: @ssn, callInitiator: @call_initiator, text: @text,
           callbackUrl: @callback_url, pinRequired: @pin_required, digest: @digest,
-          orgNumber: @org_number, requestAddress: @request_address, refId: @ref_id,
+          orgNumber: @org_number, requestAddress: @request_address, refId: @ref_id
         }.compact
       end
     end
 
     class VerifyRequest
       attr_reader :qr_code
+
       def initialize(qr_code:) = @qr_code = qr_code
       def to_h = { qrCode: @qr_code }
     end
@@ -316,6 +317,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end
@@ -326,6 +328,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Identisure::AgeVerification::Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end

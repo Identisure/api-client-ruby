@@ -12,6 +12,7 @@ class FtnTest < Minitest::Test
   def test_auth_pending
     @mock.enqueue(200, { 'status' => 'PENDING', 'id' => 'f1', 'url' => 'https://login' })
     result = @client.ftn.auth(Identisure::Ftn::AuthRequest.new)
+
     assert_kind_of Identisure::Ftn::Pending, result
     assert_equal 'https://login', result.url
   end
@@ -19,6 +20,7 @@ class FtnTest < Minitest::Test
   def test_auth_unknown_status
     @mock.enqueue(200, { 'status' => 'SOMETHING_NEW', 'id' => 'f1' })
     result = @client.ftn.auth_status('f1')
+
     assert_kind_of Identisure::Ftn::Unknown, result
     assert_equal 'SOMETHING_NEW', result.status
   end
@@ -26,7 +28,8 @@ class FtnTest < Minitest::Test
   def test_age_verification_completed
     @mock.enqueue(200, { 'status' => 'COMPLETED', 'id' => 'av1', 'ageVerified' => true })
     result = @client.ftn.age_verification(Identisure::AgeVerification::Request.new(min_age: 18))
+
     assert_kind_of Identisure::AgeVerification::Completed, result
-    assert_equal true, result.age_verified
+    assert result.age_verified
   end
 end

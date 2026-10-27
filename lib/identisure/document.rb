@@ -4,9 +4,11 @@ module Identisure
   module Document
     class UploadResponse
       attr_reader :id, :document_hash
+
       def initialize(id:, document_hash:)
         @id = id; @document_hash = document_hash
       end
+
       def deconstruct_keys(_) = { id: @id, document_hash: @document_hash }
       def self.from_json(d) = new(id: d['id'], document_hash: d['hash'])
     end

@@ -7,7 +7,7 @@ module Identisure
 
     BASE_URLS = {
       PRODUCTION => 'https://api.identisure.com',
-      STAGING    => 'https://stgapi.identisure.com',
+      STAGING => 'https://stgapi.identisure.com',
     }.freeze
 
     def self.base_url(env)

@@ -1,0 +1,68 @@
+plugins:
+  - rubocop-minitest
+  - rubocop-rake
+
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+  SuggestExtensions: false
+
+# Comments only where the code is not self-explanatory.
+Style/Documentation:
+  Enabled: false
+
+# Model initializers assign their fields on one line: `@a = a; @b = b`.
+Style/Semicolon:
+  AllowAsExpressionSeparator: true
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+# `from_json(d)` takes the decoded JSON hash in every model.
+Naming/MethodParameterName:
+  AllowedNames: [d, id]
+
+# Models mirror the API's response fields as keyword arguments.
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
+# `from_json` maps one JSON key per model field.
+Metrics/AbcSize:
+  AllowedMethods: [from_json]
+  Exclude:
+    - test/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - test/**/*
+
+Metrics/ClassLength:
+  Exclude:
+    - test/**/*
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - test/**/*
+
+Metrics/MethodLength:
+  Exclude:
+    - test/**/*
+
+# End-to-end tests check a whole flow per test.
+Minitest/MultipleAssertions:
+  Max: 8
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable

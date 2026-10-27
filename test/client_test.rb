@@ -5,8 +5,9 @@ require_relative 'test_helper'
 class ClientTest < Minitest::Test
   def test_builder_produces_client
     client = Identisure::ClientBuilder.new('id', 'secret')
-                                     .environment(Identisure::Environment::STAGING)
-                                     .build
+                                      .environment(Identisure::Environment::STAGING)
+                                      .build
+
     assert_kind_of Identisure::Client, client
   end
 
@@ -15,15 +16,16 @@ class ClientTest < Minitest::Test
     mock.enqueue(200, { 'ok' => true })
 
     client = Identisure::ClientBuilder.new('cid', 'sec')
-                                     .http_client(mock.connection)
-                                     .build
+                                      .http_client(mock.connection)
+                                      .build
     # Use transport via a get on an arbitrary path through a stub endpoint.
     transport = client.instance_variable_get(:@transport)
     transport.get('/v3/ping')
 
     req = mock.last_request
     auth_header = req[:headers]['Authorization'] || req[:headers]['authorization']
-    expected = 'Basic ' + ['cid:sec'].pack('m0')
+    expected = "Basic #{['cid:sec'].pack('m0')}"
+
     assert_equal expected, auth_header
     assert_match %r{identisure-client-ruby/}, req[:headers]['User-Agent']
     assert_equal '/v3/ping', req[:path]

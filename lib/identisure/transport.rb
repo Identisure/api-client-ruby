@@ -5,7 +5,7 @@ require 'json'
 require 'securerandom'
 
 module Identisure
-  USER_AGENT = "identisure-client-ruby/#{Identisure::VERSION}"
+  USER_AGENT = "identisure-client-ruby/#{Identisure::VERSION}".freeze
 
   class Transport
     def initialize(connection, base_url, client_id, client_secret, timeout)
@@ -36,6 +36,13 @@ module Identisure
 
     def post_multipart(path, data, filename, mime_type)
       boundary = "identisure-#{SecureRandom.hex(16)}"
+      body = multipart_body(boundary, data, filename, mime_type)
+      parse(send_request(:post, path, body, 'Content-Type' => "multipart/form-data; boundary=#{boundary}"))
+    end
+
+    private
+
+    def multipart_body(boundary, data, filename, mime_type)
       escaped = filename.gsub('"', '%22').gsub("\r", '%0D').gsub("\n", '%0A')
       body = String.new(encoding: Encoding::BINARY)
       body << "--#{boundary}\r\n".b
@@ -43,10 +50,7 @@ module Identisure
       body << "Content-Type: #{mime_type}\r\n\r\n".b
       body << data.b
       body << "\r\n--#{boundary}--\r\n".b
-      parse(send_request(:post, path, body, 'Content-Type' => "multipart/form-data; boundary=#{boundary}"))
     end
-
-    private
 
     def send_request(method, path, body = nil, headers = {})
       headers = headers.merge('Authorization' => @authorization, 'User-Agent' => USER_AGENT)
@@ -54,6 +58,7 @@ module Identisure
         req.options.timeout = @timeout
       end
       raise IdentisureError.new(res.status, error_message(res.body)) unless res.success?
+
       res
     rescue Faraday::Error => e
       raise IdentisureError.new(0, e.message)

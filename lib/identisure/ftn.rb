@@ -18,11 +18,11 @@ module Identisure
 
       def to_h
         {
-          redirectUrl:    @redirect_url,
-          requestPhone:   @request_phone,
-          requestEmail:   @request_email,
+          redirectUrl: @redirect_url,
+          requestPhone: @request_phone,
+          requestEmail: @request_email,
           requestAddress: @request_address,
-          refId:          @ref_id,
+          refId: @ref_id,
         }.compact
       end
     end
@@ -147,6 +147,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end
@@ -157,6 +158,7 @@ module Identisure
           status = yield
           return status unless status.is_a?(Identisure::AgeVerification::Pending)
           raise WaitError.new(timeout: true) if Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+
           sleep opts.interval
         end
       end

@@ -52,6 +52,7 @@ class MockAdapter
             timeout: env.request.timeout,
           }
           raise 'No mock responses queued' if queue.empty?
+
           status, body, content_type = queue.shift
           [status, { 'content-type' => content_type }, body]
         end
