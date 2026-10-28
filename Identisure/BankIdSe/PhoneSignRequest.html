@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Identisure::BankIdSe::PhoneSignRequest
+  
+    &mdash; Documentation by YARD 0.9.45
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "Identisure::BankIdSe::PhoneSignRequest";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (P)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Identisure.html" title="Identisure (module)">Identisure</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../BankIdSe.html" title="Identisure::BankIdSe (module)">BankIdSe</a></span></span>
+     &raquo; 
+    <span class="title">PhoneSignRequest</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Identisure::BankIdSe::PhoneSignRequest
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Identisure::BankIdSe::PhoneSignRequest</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/identisure/bank_id_se.rb
+</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#call_initiator-instance_method" title="#call_initiator (instance method)">#<strong>call_initiator</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute call_initiator.</p></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#callback_url-instance_method" title="#callback_url (instance method)">#<strong>callback_url</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute callback_url.</p></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#digest-instance_method" title="#digest (instance method)">#<strong>digest</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute digest.</p></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#org_number-instance_method" title="#org_number (instance method)">#<strong>org_number</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute org_number.</p></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pin_required-instance_method" title="#pin_required (instance method)">#<strong>pin_required</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute pin_required.</p></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ref_id-instance_method" title="#ref_id (instance method)">#<strong>ref_id</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute ref_id.</p></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#request_address-instance_method" title="#request_address (instance method)">#<strong>request_address</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute request_address.</p></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ssn-instance_method" title="#ssn (instance method)">#<strong>ssn</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute ssn.</p></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#text-instance_method" title="#text (instance method)">#<strong>text</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute text.</p></div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(ssn:, call_initiator:, text:, callback_url: nil, pin_required: nil, digest: nil, org_number: nil, request_address: nil, ref_id: nil)  &#x21d2; PhoneSignRequest </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of PhoneSignRequest.</p></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_h-instance_method" title="#to_h (instance method)">#<strong>to_h</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(ssn:, call_initiator:, text:, callback_url: nil, pin_required: nil, digest: nil, org_number: nil, request_address: nil, ref_id: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Identisure::BankIdSe::PhoneSignRequest (class)">PhoneSignRequest</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a new instance of PhoneSignRequest.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84
+85
+86</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>ssn:</span><span class='comma'>,</span> <span class='label'>call_initiator:</span><span class='comma'>,</span> <span class='label'>text:</span><span class='comma'>,</span> <span class='label'>callback_url:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>pin_required:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+               <span class='label'>digest:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>org_number:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>request_address:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>ref_id:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='ivar'>@ssn</span> <span class='op'>=</span> <span class='id identifier rubyid_ssn'>ssn</span><span class='semicolon'>;</span> <span class='ivar'>@call_initiator</span> <span class='op'>=</span> <span class='id identifier rubyid_call_initiator'>call_initiator</span><span class='semicolon'>;</span> <span class='ivar'>@text</span> <span class='op'>=</span> <span class='id identifier rubyid_text'>text</span>
+  <span class='ivar'>@callback_url</span> <span class='op'>=</span> <span class='id identifier rubyid_callback_url'>callback_url</span><span class='semicolon'>;</span> <span class='ivar'>@pin_required</span> <span class='op'>=</span> <span class='id identifier rubyid_pin_required'>pin_required</span><span class='semicolon'>;</span> <span class='ivar'>@digest</span> <span class='op'>=</span> <span class='id identifier rubyid_digest'>digest</span>
+  <span class='ivar'>@org_number</span> <span class='op'>=</span> <span class='id identifier rubyid_org_number'>org_number</span><span class='semicolon'>;</span> <span class='ivar'>@request_address</span> <span class='op'>=</span> <span class='id identifier rubyid_request_address'>request_address</span><span class='semicolon'>;</span> <span class='ivar'>@ref_id</span> <span class='op'>=</span> <span class='id identifier rubyid_ref_id'>ref_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="call_initiator-instance_method">
+  
+    #<strong>call_initiator</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute call_initiator.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_call_initiator'>call_initiator</span>
+  <span class='ivar'>@call_initiator</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="callback_url-instance_method">
+  
+    #<strong>callback_url</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute callback_url.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_callback_url'>callback_url</span>
+  <span class='ivar'>@callback_url</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="digest-instance_method">
+  
+    #<strong>digest</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute digest.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_digest'>digest</span>
+  <span class='ivar'>@digest</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="org_number-instance_method">
+  
+    #<strong>org_number</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute org_number.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_org_number'>org_number</span>
+  <span class='ivar'>@org_number</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="pin_required-instance_method">
+  
+    #<strong>pin_required</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute pin_required.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_pin_required'>pin_required</span>
+  <span class='ivar'>@pin_required</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="ref_id-instance_method">
+  
+    #<strong>ref_id</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute ref_id.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ref_id'>ref_id</span>
+  <span class='ivar'>@ref_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="request_address-instance_method">
+  
+    #<strong>request_address</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute request_address.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_request_address'>request_address</span>
+  <span class='ivar'>@request_address</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="ssn-instance_method">
+  
+    #<strong>ssn</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute ssn.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ssn'>ssn</span>
+  <span class='ivar'>@ssn</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="text-instance_method">
+  
+    #<strong>text</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute text.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_text'>text</span>
+  <span class='ivar'>@text</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="to_h-instance_method">
+  
+    #<strong>to_h</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90
+91
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/identisure/bank_id_se.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>ssn:</span> <span class='ivar'>@ssn</span><span class='comma'>,</span> <span class='label'>callInitiator:</span> <span class='ivar'>@call_initiator</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='ivar'>@text</span><span class='comma'>,</span>
+    <span class='label'>callbackUrl:</span> <span class='ivar'>@callback_url</span><span class='comma'>,</span> <span class='label'>pinRequired:</span> <span class='ivar'>@pin_required</span><span class='comma'>,</span> <span class='label'>digest:</span> <span class='ivar'>@digest</span><span class='comma'>,</span>
+    <span class='label'>orgNumber:</span> <span class='ivar'>@org_number</span><span class='comma'>,</span> <span class='label'>requestAddress:</span> <span class='ivar'>@request_address</span><span class='comma'>,</span> <span class='label'>refId:</span> <span class='ivar'>@ref_id</span>
+  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Oct 28 21:16:08 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.45 (ruby-3.3.13).
+</div>
+
+    </div>
+  </body>
+</html>
