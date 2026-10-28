@@ -3,14 +3,19 @@
 # Identisure Ruby Client
 
 [![Gem version][gem-image]][gem-url]
+[![Documentation][docs-image]][docs-url]
 [![MIT license][license-image]][license-url]
 
 [gem-image]: https://img.shields.io/gem/v/identisure-client?style=flat-square
 [gem-url]: https://rubygems.org/gems/identisure-client
+[docs-image]: https://img.shields.io/badge/github-docs-orange?logo=github&style=flat-square
+[docs-url]: https://identisure.github.io/api-client-ruby
 [license-image]: https://img.shields.io/badge/license-MIT-blue?style=flat-square
 [license-url]: https://opensource.org/license/mit
 
 API client for the [Identisure](https://developers.identisure.com) REST API.
+
+Documentation: [identisure.github.io/api-client-ruby](https://identisure.github.io/api-client-ruby)
 
 ## Requirements
 

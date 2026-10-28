@@ -6,3 +6,5 @@ vendor/bundle/
 
 # IDE
 .idea/
+/.yardoc/
+/docs/
