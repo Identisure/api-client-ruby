@@ -5,8 +5,10 @@ require 'json'
 require 'securerandom'
 
 module Identisure
+  # @api private
   USER_AGENT = "identisure-client-ruby/#{Identisure::VERSION}".freeze
 
+  # @api private
   class Transport
     def initialize(connection, base_url, client_id, client_secret, timeout)
       @conn = connection

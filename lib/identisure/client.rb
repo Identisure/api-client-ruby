@@ -19,6 +19,7 @@ require_relative 'callback'
 
 module Identisure
   class Client
+    # @api private
     def initialize(transport)
       @transport = transport
     end

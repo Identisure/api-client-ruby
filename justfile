@@ -13,4 +13,4 @@ publish:
     gem push identisure-client-*.gem
 
 gen-doc:
-    bundle exec yard doc --output-dir docs --readme README.md 'lib/**/*.rb'
+    bundle exec yard doc --hide-api private --output-dir docs --readme README.md 'lib/**/*.rb'

@@ -272,6 +272,7 @@ module Identisure
     # --- Endpoint ---
 
     class Endpoint
+      # @api private
       def initialize(transport)
         @transport = transport
       end
